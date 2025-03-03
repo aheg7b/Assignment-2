@@ -8,6 +8,7 @@ package characters;
  * -health: double - charachter's numerical value for health
  * -power: double - character's power in a numerical value
  */
+
 public abstract class MiddleEarthCharacter {
 	protected String name;
     protected double health;
