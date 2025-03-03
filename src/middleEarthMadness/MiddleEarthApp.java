@@ -14,5 +14,7 @@ public class MiddleEarthApp {
 *6 exit
 *
 *everything should be set up in the character manager and you just need to call each of the functions
+*maybe use a case system?
+*make sure it loops so that it all can run over and over again and again
 *
 */
