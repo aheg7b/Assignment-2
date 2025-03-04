@@ -1,6 +1,14 @@
 package middleEarthMadness;
 
+import java.awt.Choice;
 import java.util.Scanner;
+
+import characters.Dwarf;
+import characters.Elf;
+import characters.Human;
+import characters.MiddleEarthCharacter;
+import characters.Orc;
+import characters.Wizard;
 
 public class MiddleEarthApp {
 	private Scanner scanner = new Scanner(System.in);
@@ -15,17 +23,64 @@ public class MiddleEarthApp {
 		this.manager = MiddleEarthCouncil.getInstance().getCharacterManager();
 	}
 	
+	/**
+	 * loop to handle inputs and main menu navigation
+	 */
 	private void run() {
 		while(true) {
 			displayMenu();
-			int choice = getInput("Select: ");
+			int choice = getIntInput("Select: ");
 			switch(choice) {
 			case 1: createCharacter(); break;
+			case 2: displayCharacters(); break;
+			default: System.out.println("Invalid choice...");
 			}
 		}
 	}
 	
-	private int getInput(String string) {
+	/**
+	 * Method to display all characters
+	 */
+	private void displayCharacters() {
+		System.out.println("~~~~ All Active Characters ~~~~");
+		manager.displayAllCharacters();
+	}
+	
+	
+	/**
+	 * Method used to create new characters based on user inputs
+	 */
+	private void createCharacter() {
+		displayRaces();
+		String race = getStringInput("Race: ");
+		String name = getStringInput("Name: ");
+		double health = getDoubleInput("Health: ");
+		double power = getDoubleInput("Power: ");
+		MiddleEarthCharacter character = switch(race.toLowerCase()) {
+		case "human" -> new Human(name, health, power);
+		case "elf" -> new Elf(name, health, power);
+		case "dwarf" -> new Dwarf(name, health, power);
+		case "orc" -> new Orc(name, health, power);
+		case "wizard" -> new Wizard(name, health, power);
+		default -> null;
+		};
+		
+		if(character != null && manager.addCharacter(character)) {
+			System.out.println("Character created!");
+		} else {
+			System.out.println("Character Creation Failed...");
+		}
+		
+		
+	}
+	
+	
+	/**
+	 * Methods for input handling
+	 * @param string input prompt
+	 * @return
+	 */
+	private int getIntInput(String string) {
 		while(true) {
 			try {
 				System.out.print(string);
@@ -36,14 +91,42 @@ public class MiddleEarthApp {
 		}
 	}
 
-	private void createCharacter() {
-		System.out.println("Creating Character!");
+	private double getDoubleInput(String string) {
+		while(true) {
+			try {
+				System.out.print(string);
+				return Double.parseDouble(scanner.nextLine());
+			} catch(NumberFormatException e) {
+				System.out.println("Invalid Choice...");
+			}
+		}
+	}
+
+	private String getStringInput(String string) {
+		System.out.print(string);
+		return scanner.nextLine();
+	}
+
+	/**
+	 * methods for printing menu displays
+	 */
+	private void displayRaces() {
+		System.out.println("\n~~~~ Pick Your Race ~~~~");
+		System.out.println("Human");
+		System.out.println("Elf");
+		System.out.println("Dwarf");
+		System.out.println("Orc");
+		System.out.println("Wizard");
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~");
 		
 	}
 
 	private void displayMenu() {
-		System.out.println("1. Add new Character");
-		System.out.println("2. Exit");
+		System.out.println("\n~~~~ Middle Earth Maddness ~~~~");
+		System.out.println("1. Add New Character");
+		System.out.println("2. View All Characters");
+		System.out.println("3. Exit");
+		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 	}
 }
 /**
