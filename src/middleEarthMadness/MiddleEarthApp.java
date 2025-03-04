@@ -28,7 +28,7 @@ public class MiddleEarthApp {
 	 */
 	private void run() {
 		while(true) {
-			displayMenu();
+			Menu.displayMenu();
 			int choice = getIntInput("Select: ");
 			switch(choice) {
 			case 1: createCharacter(); break;
@@ -51,7 +51,7 @@ public class MiddleEarthApp {
 	 * Method used to create new characters based on user inputs
 	 */
 	private void createCharacter() {
-		displayRaces();
+		Menu.displayRaces();
 		String race = getStringInput("Race: ");
 		String name = getStringInput("Name: ");
 		double health = getDoubleInput("Health: ");
@@ -107,27 +107,6 @@ public class MiddleEarthApp {
 		return scanner.nextLine();
 	}
 
-	/**
-	 * methods for printing menu displays
-	 */
-	private void displayRaces() {
-		System.out.println("\n~~~~ Pick Your Race ~~~~");
-		System.out.println("Human");
-		System.out.println("Elf");
-		System.out.println("Dwarf");
-		System.out.println("Orc");
-		System.out.println("Wizard");
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~");
-		
-	}
-
-	private void displayMenu() {
-		System.out.println("\n~~~~ Middle Earth Maddness ~~~~");
-		System.out.println("1. Add New Character");
-		System.out.println("2. View All Characters");
-		System.out.println("3. Exit");
-		System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-	}
 }
 /**
 *Here I plan to build the actual funcionatlity of the app
