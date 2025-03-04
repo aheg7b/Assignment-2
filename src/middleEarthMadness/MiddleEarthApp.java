@@ -24,6 +24,14 @@ public class MiddleEarthApp {
 	}
 	
 	/**
+	 * used for colored terminal outputs
+	 */
+	public static final String ANSI_RED = "\u001B[31m";
+	public static final String ANSI_GREEN = "\u001B[32m";
+	public static final String ANSI_RESET = "\u001B[0m";
+	public static final String ANSI_YELLOW = "\u001B[33m";
+	
+	/**
 	 * loop to handle inputs and main menu navigation
 	 */
 	private void run() {
@@ -33,16 +41,36 @@ public class MiddleEarthApp {
 			switch(choice) {
 			case 1: createCharacter(); break;
 			case 2: displayCharacters(); break;
-			default: System.out.println("Invalid choice...");
+			case 3: updateCharacter(); break;
+			default: System.out.println(ANSI_RED + "Invalid choice..." + ANSI_RESET);
 			}
 		}
 	}
 	
+	private void updateCharacter() {
+		String name = getStringInput("\nCharacter to update: ");
+		MiddleEarthCharacter character = manager.getCharacter(name);
+		
+		if(character == null) {
+			System.out.println(ANSI_RED + "Character Not Found..." + ANSI_RESET);
+			return;
+		}
+		double newHealth = getDoubleInput("New Health (" + character.getHealth() + "):");
+		double newPower = getDoubleInput("New Power (" + character.getPower() + "):");
+		
+		if(manager.updateCharacter(character, name, newHealth, newPower)) {
+			System.out.println(ANSI_GREEN + "\nCharacter Updated!" + ANSI_RESET);
+		} else {
+			System.out.println(ANSI_RED + "No Changes Made!" + ANSI_RESET);
+		}
+		
+	}
+
 	/**
 	 * Method to display all characters
 	 */
 	private void displayCharacters() {
-		System.out.println("~~~~ All Active Characters ~~~~");
+		System.out.println(ANSI_YELLOW + "\n~~~~ All Active Characters ~~~~" + ANSI_RESET);
 		manager.displayAllCharacters();
 	}
 	
@@ -66,9 +94,9 @@ public class MiddleEarthApp {
 		};
 		
 		if(character != null && manager.addCharacter(character)) {
-			System.out.println("Character created!");
+			System.out.println(ANSI_GREEN + "Character created!" + ANSI_RESET);
 		} else {
-			System.out.println("Character Creation Failed...");
+			System.out.println(ANSI_RED + "Character Creation Failed..." + ANSI_RESET);
 		}
 		
 		
@@ -86,7 +114,7 @@ public class MiddleEarthApp {
 				System.out.print(string);
 				return Integer.parseInt(scanner.nextLine());
 			} catch (NumberFormatException e) {
-				System.out.println("Invalid number...");
+				System.out.println(ANSI_RED + "Invalid number..." + ANSI_RESET);
 			}
 		}
 	}
@@ -97,7 +125,7 @@ public class MiddleEarthApp {
 				System.out.print(string);
 				return Double.parseDouble(scanner.nextLine());
 			} catch(NumberFormatException e) {
-				System.out.println("Invalid Choice...");
+				System.out.println(ANSI_RED + "Invalid Choice..." + ANSI_RESET);
 			}
 		}
 	}
