@@ -43,6 +43,9 @@ public class MiddleEarthApp {
 		}
 	}
 	
+	/**
+	 * Deletes the character specified by the user
+	 */
 	private void deleteCharacter() {
 		String name = getStringInput("Character to delete: ");
 		MiddleEarthCharacter character = manager.getCharacter(name);
