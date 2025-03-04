@@ -22,15 +22,10 @@ public class MiddleEarthApp {
 	public MiddleEarthApp() {
 		this.manager = MiddleEarthCouncil.getInstance().getCharacterManager();
 	}
-	
-	/**
-	 * used for colored terminal outputs
-	 */
 	public static final String ANSI_RED = "\u001B[31m";
 	public static final String ANSI_GREEN = "\u001B[32m";
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_YELLOW = "\u001B[33m";
-	
 	/**
 	 * loop to handle inputs and main menu navigation
 	 */
@@ -42,11 +37,23 @@ public class MiddleEarthApp {
 			case 1: createCharacter(); break;
 			case 2: displayCharacters(); break;
 			case 3: updateCharacter(); break;
+			case 4: deleteCharacter(); break;
 			default: System.out.println(ANSI_RED + "Invalid choice..." + ANSI_RESET);
 			}
 		}
 	}
 	
+	private void deleteCharacter() {
+		String name = getStringInput("Character to delete: ");
+		MiddleEarthCharacter character = manager.getCharacter(name);
+		if(character != null && manager.deleteCharacter(character)) {
+			System.out.println(ANSI_GREEN + "Character Deleted!" + ANSI_RESET);
+		} else {
+			System.out.println(ANSI_RED + "Charcter Deletion Failed..." + ANSI_RESET);
+		}
+		
+	}
+
 	private void updateCharacter() {
 		String name = getStringInput("\nCharacter to update: ");
 		MiddleEarthCharacter character = manager.getCharacter(name);
