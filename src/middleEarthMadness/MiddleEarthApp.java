@@ -22,10 +22,15 @@ public class MiddleEarthApp {
 	public MiddleEarthApp() {
 		this.manager = MiddleEarthCouncil.getInstance().getCharacterManager();
 	}
+	
+	/**
+	 * used for colored terminal outputs
+	 */
 	public static final String ANSI_RED = "\u001B[31m";
 	public static final String ANSI_GREEN = "\u001B[32m";
 	public static final String ANSI_RESET = "\u001B[0m";
 	public static final String ANSI_YELLOW = "\u001B[33m";
+	
 	/**
 	 * loop to handle inputs and main menu navigation
 	 */
@@ -38,9 +43,30 @@ public class MiddleEarthApp {
 			case 2: displayCharacters(); break;
 			case 3: updateCharacter(); break;
 			case 4: deleteCharacter(); break;
+			case 5: executeAttacks(); break;
+			case 6: exitApp();
 			default: System.out.println(ANSI_RED + "Invalid choice..." + ANSI_RESET);
 			}
 		}
+	}
+	
+	/**
+	 * exits the application
+	 */
+	private void exitApp() {
+		System.out.println(ANSI_YELLOW + "Farewell, and may the blessing of Elves and Men go with you." + ANSI_RESET);
+		scanner.close();
+		System.exit(0);
+	}
+
+	/**
+	 * executes all possible attacks between characters
+	 */
+	private void executeAttacks() {
+		manager.executeAllAttacks();
+		System.out.println(ANSI_YELLOW + "\n~~~~~~ Battle Results ~~~~~~" + ANSI_RESET);
+		manager.displayAllCharacters();
+		System.out.println(ANSI_YELLOW + "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + ANSI_RESET);
 	}
 	
 	/**
@@ -56,7 +82,10 @@ public class MiddleEarthApp {
 		}
 		
 	}
-
+	
+	/**
+	 * Updates the character specified by the user
+	 */
 	private void updateCharacter() {
 		String name = getStringInput("\nCharacter to update: ");
 		MiddleEarthCharacter character = manager.getCharacter(name);
@@ -146,18 +175,3 @@ public class MiddleEarthApp {
 	}
 
 }
-/**
-*Here I plan to build the actual funcionatlity of the app
-*it will ask for inputs from the user to do all of the following
-*1 add new character
-*2 view all characters
-*3 update characters
-*4 delete characters
-*5 attack eachother
-*6 exit
-*
-*everything should be set up in the character manager and you just need to call each of the functions
-*maybe use a case system?
-*make sure it loops so that it all can run over and over again and again
-*
-*/
