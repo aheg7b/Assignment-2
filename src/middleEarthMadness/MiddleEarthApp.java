@@ -63,6 +63,10 @@ public class MiddleEarthApp {
 	 * executes all possible attacks between characters
 	 */
 	private void executeAttacks() {
+		if(manager.getCharacterCount() == 0) {
+			System.out.println(ANSI_RED + "No characters to battle..." + ANSI_RESET);
+			return;
+		}
 		System.out.println(ANSI_YELLOW + "\n~~~~~~ Battle Results ~~~~~~" + ANSI_RESET);
 		manager.executeAllAttacks();
 		manager.displayAllCharacters();
@@ -73,6 +77,10 @@ public class MiddleEarthApp {
 	 * Deletes the character specified by the user
 	 */
 	private void deleteCharacter() {
+		if(manager.getCharacterCount() == 0) {
+			System.out.println(ANSI_RED + "No characters to delete..." + ANSI_RESET);
+			return;
+		}
 		String name = getStringInput("Character to delete: ");
 		MiddleEarthCharacter character = manager.getCharacter(name);
 		if(character != null && manager.deleteCharacter(character)) {
@@ -87,6 +95,10 @@ public class MiddleEarthApp {
 	 * Updates the character specified by the user
 	 */
 	private void updateCharacter() {
+		if(manager.getCharacterCount() == 0) {
+			System.out.println(ANSI_RED + "No characters to update..." + ANSI_RESET);
+			return;
+		}
 		String name = getStringInput("\nCharacter to update: ");
 		MiddleEarthCharacter character = manager.getCharacter(name);
 		

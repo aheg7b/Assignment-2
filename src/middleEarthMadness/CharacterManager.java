@@ -18,6 +18,7 @@ import characters.*;
  * - deleteCharacter: Deletes a specified character from the array and shifts other elements to fill the gap
  * - displayAllCharacters: Displays information for all characters currently in manager
  * - executeAllAttacks: Executes attacks between all characters in manager
+ * - getCharacterCount: returns the size of the character array
  */
 
 public class CharacterManager {
@@ -81,6 +82,10 @@ public class CharacterManager {
         for (int i = 0; i < size; i++) {
             characters[i].displayInfo();
         }
+    }
+    
+    public int getCharacterCount() {
+    	return size;
     }
 
     public void executeAllAttacks() {
