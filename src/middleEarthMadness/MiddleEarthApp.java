@@ -1,6 +1,5 @@
 package middleEarthMadness;
 
-import java.awt.Choice;
 import java.util.Scanner;
 
 import characters.Dwarf;
