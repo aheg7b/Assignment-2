@@ -22,6 +22,7 @@ public class Elf extends MiddleEarthCharacter {
 
     @Override
     public boolean attack(MiddleEarthCharacter target) {
+    	if(this.health <= 0) {return false;}
         if (target instanceof Dwarf || target instanceof Elf) {
             return false; // Ineffective attack
         } else if (target instanceof Orc) {

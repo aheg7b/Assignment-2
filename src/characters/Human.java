@@ -21,6 +21,7 @@ public class Human extends MiddleEarthCharacter {
 
     @Override
     public boolean attack(MiddleEarthCharacter target) {
+    	if(this.health <= 0) {return false;}
         if (target instanceof Orc || target instanceof Human) {
             return false; // Ineffective attack
         } else if (target instanceof Wizard) {

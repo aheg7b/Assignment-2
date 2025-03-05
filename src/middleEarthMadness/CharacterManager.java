@@ -95,6 +95,12 @@ public class CharacterManager {
                 }
             }
         }
+        for(int i = size-1;i>=0; i--) {
+        	if(characters[i].getHealth() <= 0) {
+        		System.out.println(characters[i].getName() + " has fallen in battle!");
+        		deleteCharacter(characters[i]);
+        	}
+        }
     }
 
 }

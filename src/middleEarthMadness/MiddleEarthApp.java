@@ -63,8 +63,8 @@ public class MiddleEarthApp {
 	 * executes all possible attacks between characters
 	 */
 	private void executeAttacks() {
-		manager.executeAllAttacks();
 		System.out.println(ANSI_YELLOW + "\n~~~~~~ Battle Results ~~~~~~" + ANSI_RESET);
+		manager.executeAllAttacks();
 		manager.displayAllCharacters();
 		System.out.println(ANSI_YELLOW + "\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~" + ANSI_RESET);
 	}
@@ -162,9 +162,13 @@ public class MiddleEarthApp {
 		while(true) {
 			try {
 				System.out.print(string);
-				return Double.parseDouble(scanner.nextLine());
+				double num = Double.parseDouble(scanner.nextLine());
+				if(num<=0) {throw new IllegalArgumentException(ANSI_RED + "Cannont be negative or 0..." + ANSI_RESET);}
+				return num;
 			} catch(NumberFormatException e) {
 				System.out.println(ANSI_RED + "Invalid Choice..." + ANSI_RESET);
+			} catch (IllegalArgumentException e) {
+				System.err.println(e.getMessage());
 			}
 		}
 	}
